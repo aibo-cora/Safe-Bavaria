@@ -18,6 +18,9 @@
 		DEAA5FA1255C724100BDCE97 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5FA0255C724100BDCE97 /* Utility.swift */; };
 		DEAA5FA4255C92BF00BDCE97 /* Find.User.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */; };
 		DEBA8EC9255CD43300817747 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DEBA8EC8255CD43300817747 /* SwiftyJSON */; };
+		DEFAEEE9255CF90E00EEF0E2 /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFAEEE8255CF90E00EEF0E2 /* Localized.swift */; };
+		DEFAEEED255CFB6D00EEF0E2 /* AlertLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFAEEEC255CFB6D00EEF0E2 /* AlertLevel.swift */; };
+		DEFAEEF0255D02C300EEF0E2 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = DEFAEEEF255D02C300EEF0E2 /* TODO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.User.Location.swift; sourceTree = "<group>"; };
 		DEAA5FB8255C9DB500BDCE97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DEAA5FB9255C9DB500BDCE97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		DEFAEEE8255CF90E00EEF0E2 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
+		DEFAEEEC255CFB6D00EEF0E2 /* AlertLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLevel.swift; sourceTree = "<group>"; };
+		DEFAEEEF255D02C300EEF0E2 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +58,9 @@
 		DE20FB21255CA03E004443D3 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				DEFAEEE7255CF8F900EEF0E2 /* String */,
 				DE20FB22255CA044004443D3 /* Notifications */,
+				DEFAEEEC255CFB6D00EEF0E2 /* AlertLevel.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -68,6 +76,7 @@
 		DEAA5F78255C69C600BDCE97 = {
 			isa = PBXGroup;
 			children = (
+				DEFAEEEF255D02C300EEF0E2 /* TODO */,
 				DEAA5F83255C69C600BDCE97 /* Safe Bavaria */,
 				DEAA5F82255C69C600BDCE97 /* Products */,
 			);
@@ -120,6 +129,14 @@
 				DEAA5F88255C69C600BDCE97 /* ViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DEFAEEE7255CF8F900EEF0E2 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				DEFAEEE8255CF90E00EEF0E2 /* Localized.swift */,
+			);
+			path = String;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEAA5F9D255C71CC00BDCE97 /* jsonData in Resources */,
+				DEFAEEF0255D02C300EEF0E2 /* TODO in Resources */,
 				DEAA5F91255C69C900BDCE97 /* LaunchScreen.storyboard in Resources */,
 				DEAA5F8E255C69C900BDCE97 /* Assets.xcassets in Resources */,
 				DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */,
@@ -203,9 +221,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEAA5FA4255C92BF00BDCE97 /* Find.User.Location.swift in Sources */,
+				DEFAEEE9255CF90E00EEF0E2 /* Localized.swift in Sources */,
 				DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */,
 				DE20FB24255CA05E004443D3 /* Notification.Name.swift in Sources */,
 				DEAA5F85255C69C600BDCE97 /* AppDelegate.swift in Sources */,
+				DEFAEEED255CFB6D00EEF0E2 /* AlertLevel.swift in Sources */,
 				DEAA5FA1255C724100BDCE97 /* Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

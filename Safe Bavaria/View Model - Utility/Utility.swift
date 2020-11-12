@@ -60,6 +60,7 @@ class Utility {
     }
     
     static var userLocation: CLLocation?
+    static var alertLevel = AlertLevel.Green
     
     /// Reverse geocode the last reported location of the user to find the region.
     /// - Parameter location: Last known location of the user.

@@ -61,30 +61,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func displayData(using cases: Double, lastUpdated: String) {
         let colorMessages = Utility.getCurrentStates()
-        var currentState: String?
-        var currentAlertLevel = ""
+        var currentAlertLevel = AlertLevel.Green
+        var currentAlert:String?
         
         switch cases {
         case 0...34:
-            currentState = colorMessages[0]
-            currentAlertLevel = "GREEN"
+            currentAlertLevel = .Green
+            currentAlert = colorMessages[0]
         case 36...50:
-            currentState = colorMessages[1]
-            currentAlertLevel = "YELLOW"
+            currentAlertLevel = .Yellow
+            currentAlert = colorMessages[1]
         case 51...99:
-            currentState = colorMessages[2]
-            currentAlertLevel = "RED"
+            currentAlertLevel = .Red
+            currentAlert = colorMessages[2]
         default:
-            currentState = colorMessages[3]
-            currentAlertLevel = "DARK RED"
+            currentAlertLevel = .DarkRed
+            currentAlert = colorMessages[3]
         }
         
-        let alert = UIAlertController(title: currentAlertLevel, message: currentState, preferredStyle: .alert)
-        present(alert, animated: true) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                self.dismiss(animated: true, completion: nil)
-            }
+        if currentAlertLevel != Utility.alertLevel {
+            notifyUser()
         }
+    }
+    
+    /// Alert level has changed. Display a notification.
+    fileprivate func notifyUser() {
+        print("Alert level has changed...")
     }
     
     func startTimer() {
