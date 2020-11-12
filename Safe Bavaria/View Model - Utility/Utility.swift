@@ -72,4 +72,10 @@ class Utility {
             }
         }
     }
+    
+    /// Retrieve number of cases in Bavaria per 100,000 in the last 7 days.
+    /// - Parameter handler: After the responses is received, handler will display data on main View
+    static func getCasesData(handler: @escaping (String) -> Void ) {
+        handler("Testing...")
+    }
 }

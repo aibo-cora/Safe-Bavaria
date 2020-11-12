@@ -12,9 +12,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     /// How often, in secods, the app checks for updates
     let timeInterval = 600
+    /// Contact tracing region
+    let region = "Bavaria"
     
     var timer: DispatchSourceTimer?
-    
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -30,7 +31,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @objc func userLocated(_ notification: NSNotification) {
         Utility.findLocationRegion(location: Utility.userLocation) { (germanState) in
             if let state = germanState {
-                print(state)
+                switch state {
+                case self.region:
+                    Utility.getCasesData() { cases in
+                        self.displayData()
+                    }
+                default:
+                    let alert = UIAlertController(title: "Out of bounds", message: "This region is not being monitored.", preferredStyle: .alert)
+                    self.present(alert, animated: true) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
             }
         }
     }
