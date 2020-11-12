@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import CoreLocation
 import Alamofire
+import SwiftyJSON
 
 /// This is a class with static functions that acts as the View Model middleman between UI and model.
 class Utility {
@@ -75,8 +76,29 @@ class Utility {
     }
     
     /// Retrieve number of cases in Bavaria per 100,000 in the last 7 days.
-    /// - Parameter handler: After the responses is received, handler will display data on main View
-    static func getCasesData(handler: @escaping (String) -> Void ) {
-        
+    /// - Parameter handler: After the responses is received, handler will hand off # of cases, date of the last update and error (if any) to the View for display.
+    static func getCasesData(handler: @escaping (String, String, Error?) -> Void ) {
+        if let queryURL = URL(string: "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=BL,BL_ID,county,last_update,cases7_per_100k,cases7_bl_per_100k&outSR=4326&f=json") {
+            
+            AF.request(queryURL, method: .get).responseJSON { (response) in
+                switch response.result {
+                case .success(let jsonData):
+                    let data = JSON(jsonData)
+                    
+                    dataLoop: for feature in data["features"] {
+                        featureLoop: for (key,value) in feature.1 {
+                            if key == "attributes" {
+                                if value["BL"] == "Bayern" {
+                                    handler(value["cases7_bl_per_100k"].stringValue, value["last_update"].stringValue, nil)
+                                    break dataLoop
+                                }
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    handler("", "", error)
+                }
+            }
+        }
     }
 }

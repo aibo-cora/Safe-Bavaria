@@ -33,8 +33,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if let state = germanState {
                 switch state {
                 case self.region:
-                    Utility.getCasesData() { cases in
-                        self.displayData()
+                    Utility.getCasesData() { cases, time, error  in
+                        if error == nil {
+                            if let cases = Double(cases) {
+                                self.displayData(using: cases, lastUpdated: time)
+                            }
+                        } else {
+                            let alert = UIAlertController(title: "Server Error.", message: "Server does not respond, please try again later.", preferredStyle: .alert)
+                            self.present(alert, animated: true) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                            }
+                        }
                     }
                 default:
                     let alert = UIAlertController(title: "Out of bounds", message: "This region is not being monitored.", preferredStyle: .alert)
@@ -48,13 +59,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func displayData() {
+    func displayData(using cases: Double, lastUpdated: String) {
         let colorMessages = Utility.getCurrentStates()
+        var currentState: String?
+        var currentAlertLevel = ""
         
-        let alert = UIAlertController(title: "Current state in Bavaria - GREEN", message: colorMessages[0], preferredStyle: .alert)
+        switch cases {
+        case 0...34:
+            currentState = colorMessages[0]
+            currentAlertLevel = "GREEN"
+        case 36...50:
+            currentState = colorMessages[1]
+            currentAlertLevel = "YELLOW"
+        case 51...99:
+            currentState = colorMessages[2]
+            currentAlertLevel = "RED"
+        default:
+            currentState = colorMessages[3]
+            currentAlertLevel = "DARK RED"
+        }
+        
+        let alert = UIAlertController(title: currentAlertLevel, message: currentState, preferredStyle: .alert)
         present(alert, animated: true) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }

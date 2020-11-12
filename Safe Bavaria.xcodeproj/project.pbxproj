@@ -17,6 +17,7 @@
 		DEAA5F9D255C71CC00BDCE97 /* jsonData in Resources */ = {isa = PBXBuildFile; fileRef = DEAA5F9C255C71CC00BDCE97 /* jsonData */; };
 		DEAA5FA1255C724100BDCE97 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5FA0255C724100BDCE97 /* Utility.swift */; };
 		DEAA5FA4255C92BF00BDCE97 /* Find.User.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */; };
+		DEBA8EC9255CD43300817747 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DEBA8EC8255CD43300817747 /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEBA8EC9255CD43300817747 /* SwiftyJSON in Frameworks */,
 				DE411A7B255CCDFB0088A9E0 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +140,7 @@
 			name = "Safe Bavaria";
 			packageProductDependencies = (
 				DE411A7A255CCDFB0088A9E0 /* Alamofire */,
+				DEBA8EC8255CD43300817747 /* SwiftyJSON */,
 			);
 			productName = "Safe Bavaria";
 			productReference = DEAA5F81255C69C600BDCE97 /* Safe Bavaria.app */;
@@ -169,6 +172,7 @@
 			mainGroup = DEAA5F78255C69C600BDCE97;
 			packageReferences = (
 				DE411A79255CCDFB0088A9E0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DEBA8EC7255CD43300817747 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = DEAA5F82255C69C600BDCE97 /* Products */;
 			projectDirPath = "";
@@ -418,6 +422,14 @@
 				minimumVersion = 5.4.0;
 			};
 		};
+		DEBA8EC7255CD43300817747 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -425,6 +437,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DE411A79255CCDFB0088A9E0 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		DEBA8EC8255CD43300817747 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DEBA8EC7255CD43300817747 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
