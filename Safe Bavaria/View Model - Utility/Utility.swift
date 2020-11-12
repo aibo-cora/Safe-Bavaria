@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import CoreLocation
+import Alamofire
 
 /// This is a class with static functions that acts as the View Model middleman between UI and model.
 class Utility {
@@ -76,6 +77,6 @@ class Utility {
     /// Retrieve number of cases in Bavaria per 100,000 in the last 7 days.
     /// - Parameter handler: After the responses is received, handler will display data on main View
     static func getCasesData(handler: @escaping (String) -> Void ) {
-        handler("Testing...")
+        
     }
 }
