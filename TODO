@@ -1,2 +1,3 @@
 - Text in the app should be displayed in German (if the system language is german - or in english - if the system language is not german)
 - If the status changes - send a notification - push message to the users screen and show him the Applying rules for his current location in the app.
+- Move defineAlertLevel() to Utility

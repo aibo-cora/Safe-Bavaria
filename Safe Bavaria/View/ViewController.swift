@@ -12,7 +12,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     /// How often, in secods, the app checks for updates
     let timeInterval = 600
-    /// Contact tracing region
+    /// Region to monitor
     let region = "Bavaria"
     
     var timer: DispatchSourceTimer?
@@ -28,6 +28,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(userLocated(_:)), name: .UserLocated, object: nil)
     }
     
+    /// When the location manager delegate updates (returns) user location, this function continues with checking whether the user is in the region that is being monitored. If the user is in the region, the function calls an API that returns number of cases in the region from a server.
+    /// - Parameter notification: notification that triggered this call.
     @objc func userLocated(_ notification: NSNotification) {
         Utility.findLocationRegion(location: Utility.userLocation) { (germanState) in
             if let state = germanState {
@@ -36,10 +38,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     Utility.getCasesData() { cases, time, error  in
                         if error == nil {
                             if let cases = Double(cases) {
-                                self.displayData(using: cases, lastUpdated: time)
+                                self.defineAlertLevel(using: cases, lastUpdated: time)
                             }
                         } else {
-                            let alert = UIAlertController(title: "Server Error.", message: "Server does not respond, please try again later.", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Server Error.", message: "Server did not respond, please try again later.", preferredStyle: .alert)
                             self.present(alert, animated: true) {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                                     self.dismiss(animated: true, completion: nil)
@@ -59,39 +61,49 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func displayData(using cases: Double, lastUpdated: String) {
+    func defineAlertLevel(using cases: Double, lastUpdated: String) {
         let colorMessages = Utility.getCurrentStates()
         var currentAlertLevel = AlertLevel.Green
-        var currentAlert:String?
+        var userMessage:String?
         
         switch cases {
         case 0...34:
             currentAlertLevel = .Green
-            currentAlert = colorMessages[0]
+            userMessage = colorMessages[0]
         case 36...50:
             currentAlertLevel = .Yellow
-            currentAlert = colorMessages[1]
+            userMessage = colorMessages[1]
         case 51...99:
             currentAlertLevel = .Red
-            currentAlert = colorMessages[2]
+            userMessage = colorMessages[2]
         default:
             currentAlertLevel = .DarkRed
-            currentAlert = colorMessages[3]
+            userMessage = colorMessages[3]
         }
         
         if currentAlertLevel != Utility.alertLevel {
-            notifyUser()
+            notifyUser(with: userMessage)
+            Utility.alertLevel = currentAlertLevel
         }
+        
+        displayData(using: userMessage)
+    }
+    
+    /// Update UI, if needed, to show current guidelines within app.
+    /// - Parameter message: Current level guidelines.
+    fileprivate func displayData(using message: String?) {
+        
     }
     
     /// Alert level has changed. Display a notification.
-    fileprivate func notifyUser() {
+    /// - Parameter message: Current level guidelines.
+    fileprivate func notifyUser(with message: String?) {
         print("Alert level has changed...")
     }
     
+    /// Every "timeInternal" (current = 10 minutes) the timer fires up the location manager to find user location.
     func startTimer() {
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))
-        
         timer?.schedule(deadline: .now(), repeating: .seconds(timeInterval))
         timer?.setEventHandler {
             Utility.configureLocationManager(manager: self.locationManager, delegate: self)
