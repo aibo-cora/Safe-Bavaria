@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let UserLocated = Notification.Name("UserLocated")
+    static let ShowProgress = Notification.Name("ShowProgress")
 }

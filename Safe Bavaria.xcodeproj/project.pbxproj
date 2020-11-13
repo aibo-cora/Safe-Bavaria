@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DE20FB24255CA05E004443D3 /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20FB23255CA05E004443D3 /* Notification.Name.swift */; };
 		DE411A7B255CCDFB0088A9E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DE411A7A255CCDFB0088A9E0 /* Alamofire */; };
+		DE5CAB2B255F0BA1005C76FC /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CAB2A255F0BA1005C76FC /* ProgressIndicator.swift */; };
 		DEAA5F85255C69C600BDCE97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */; };
 		DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F88255C69C600BDCE97 /* ViewController.swift */; };
 		DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEAA5F8A255C69C600BDCE97 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		DE20FB23255CA05E004443D3 /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
+		DE5CAB2A255F0BA1005C76FC /* ProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicator.swift; sourceTree = "<group>"; };
 		DEAA5F81255C69C600BDCE97 /* Safe Bavaria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Bavaria.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEAA5F88255C69C600BDCE97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				DEFAEEE7255CF8F900EEF0E2 /* String */,
 				DE20FB22255CA044004443D3 /* Notifications */,
 				DEFAEEEC255CFB6D00EEF0E2 /* AlertLevel.swift */,
+				DE5CAB2A255F0BA1005C76FC /* ProgressIndicator.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				DEFAEEE9255CF90E00EEF0E2 /* Localized.swift in Sources */,
 				DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */,
 				DE20FB24255CA05E004443D3 /* Notification.Name.swift in Sources */,
+				DE5CAB2B255F0BA1005C76FC /* ProgressIndicator.swift in Sources */,
 				DEAA5F85255C69C600BDCE97 /* AppDelegate.swift in Sources */,
 				DEFAEEED255CFB6D00EEF0E2 /* AlertLevel.swift in Sources */,
 				DEAA5FA1255C724100BDCE97 /* Utility.swift in Sources */,

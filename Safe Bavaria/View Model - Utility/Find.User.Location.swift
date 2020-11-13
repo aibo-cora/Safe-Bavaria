@@ -17,6 +17,11 @@ extension ViewController {
         case .notDetermined, .denied, .restricted:
             self.alertLocationAccessNeeded()
         case .authorizedAlways, .authorizedWhenInUse:
+            if CLLocationManager.locationServicesEnabled() {
+                NotificationCenter.default.post(name: .ShowProgress, object: nil)
+                
+                manager.requestLocation()
+            }
             manager.requestLocation()
         default:
             break

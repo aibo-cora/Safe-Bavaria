@@ -17,6 +17,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var timer: DispatchSourceTimer?
     let locationManager = CLLocationManager()
+    var activityIndicator: ProgressIndicator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(userLocated(_:)), name: .UserLocated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showProgress(_:)), name: .ShowProgress, object: nil)
+        
+        activityIndicator = ProgressIndicator(inview:self.view, loadingViewColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), indicatorColor: UIColor.black, message: "Gathering data...")
+            self.view.addSubview(activityIndicator!)
     }
     
     /// When the location manager delegate updates (returns) user location, this function continues with checking whether the user is in the region that is being monitored. If the user is in the region, the function calls an API that returns number of cases in the region from a server.
@@ -89,10 +94,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         displayData(using: userMessage)
     }
     
+    @objc fileprivate func showProgress(_ notification: NSNotification) {
+        DispatchQueue.main.async {
+            self.activityIndicator?.start()
+        }
+    }
+    
     /// Update UI, if needed, to show current guidelines within app.
     /// - Parameter message: Current level guidelines.
     fileprivate func displayData(using message: String?) {
-        
+        DispatchQueue.main.async {
+            self.activityIndicator?.stop()
+        }
     }
     
     /// Alert level has changed. Display a notification.
