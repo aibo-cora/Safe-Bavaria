@@ -10,6 +10,14 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
+    @IBOutlet var alertColorButtons: [AlertColorButton]!
+    let colorSchemes: [UIColor] = [
+        UIColor(red: 0, green: 1, blue: 0, alpha: 1),       // Green
+        UIColor(red: 1, green: 1, blue: 0, alpha: 1),       // Yellow
+        UIColor(red: 1, green: 0, blue: 0, alpha: 1),       // Red
+        UIColor(red: 128/255, green: 0, blue: 0, alpha: 1)  // Dark Red
+    ]
+    
     /// How often, in secods, the app checks for updates
     let timeInterval = 600
     /// Region to monitor
@@ -105,6 +113,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     fileprivate func displayData(using message: String?) {
         DispatchQueue.main.async {
             self.activityIndicator?.stop()
+            
+            if self.alertColorButtons.count == self.colorSchemes.count {
+                for counter in 0..<self.alertColorButtons.count {
+                    self.alertColorButtons[counter].backgroundColor = self.colorSchemes[counter]
+                }
+            }
+            
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 1) {
+                    for counter in 0..<self.alertColorButtons.count {
+                        self.alertColorButtons[counter].alpha = 0.1
+                    }
+                } completion: { (finished) in
+                    UIView.animate(withDuration: 0.5) {
+                        self.alertColorButtons[Utility.alertLevel.rawValue].alpha = 1
+                    }
+                }
+            }
         }
     }
     

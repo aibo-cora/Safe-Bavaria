@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum AlertLevel: String, CaseIterable {
+enum AlertLevel: Int, CaseIterable {
     case Green, Yellow, Red, DarkRed
 }
