@@ -1,3 +1,5 @@
 - Text in the app should be displayed in German (if the system language is german - or in english - if the system language is not german)
+
+- The application should check every 10 minutes for the property cases7_per_100k from the official rest api for the actual coordinates
+of the devices. API and API Documentation under this URL:
 - If the status changes - send a notification - push message to the users screen and show him the Applying rules for his current location in the app.
-- Move defineAlertLevel() to Utility

@@ -104,7 +104,6 @@
 				DEAA5F9F255C722200BDCE97 /* View Model - Utility */,
 				DEAA5F9B255C716300BDCE97 /* Data */,
 				DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */,
-				DEAA5F8A255C69C600BDCE97 /* Main.storyboard */,
 				DEAA5F8D255C69C900BDCE97 /* Assets.xcassets */,
 				DEAA5F8F255C69C900BDCE97 /* LaunchScreen.storyboard */,
 				DEAA5F92255C69C900BDCE97 /* Info.plist */,
@@ -132,6 +131,7 @@
 		DEAA5FBB255C9EB700BDCE97 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DEAA5F8A255C69C600BDCE97 /* Main.storyboard */,
 				DEAA5F88255C69C600BDCE97 /* ViewController.swift */,
 			);
 			path = View;

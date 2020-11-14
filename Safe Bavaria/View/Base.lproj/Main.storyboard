@@ -52,16 +52,29 @@
                                     <constraint firstAttribute="height" constant="50" id="n3y-5j-IuG"/>
                                 </constraints>
                             </stackView>
+                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zgk-Jd-92i">
+                                <rect key="frame" x="20" y="164" width="374" height="678"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="zgk-Jd-92i" firstAttribute="top" secondItem="WMq-IM-gbq" secondAttribute="bottom" constant="20" id="5fi-nQ-xvC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zgk-Jd-92i" secondAttribute="trailing" constant="20" id="AHs-V2-sOB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zgk-Jd-92i" secondAttribute="bottom" constant="20" id="ES9-gt-ARm"/>
                             <constraint firstItem="WMq-IM-gbq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="FhX-LN-twK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WMq-IM-gbq" secondAttribute="trailing" constant="20" id="Glt-xD-JlU"/>
+                            <constraint firstItem="zgk-Jd-92i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Jd4-6f-8mi"/>
                             <constraint firstItem="WMq-IM-gbq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="SjF-LP-NrE"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="guidelineTextView" destination="zgk-Jd-92i" id="Y23-oE-6TR"/>
                         <outletCollection property="alertColorButtons" destination="1wj-gt-rOt" collectionClass="NSMutableArray" id="28B-qB-OLQ"/>
                         <outletCollection property="alertColorButtons" destination="LSm-Re-q20" collectionClass="NSMutableArray" id="oUn-nD-hOy"/>
                         <outletCollection property="alertColorButtons" destination="o1P-Cc-yeJ" collectionClass="NSMutableArray" id="VVQ-JT-v6u"/>
@@ -74,6 +87,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -11,6 +11,8 @@ import CoreLocation
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet var alertColorButtons: [AlertColorButton]!
+    @IBOutlet weak var guidelineTextView: UITextView!
+    
     let colorSchemes: [UIColor] = [
         UIColor(red: 0, green: 1, blue: 0, alpha: 1),       // Green
         UIColor(red: 1, green: 1, blue: 0, alpha: 1),       // Yellow
@@ -27,6 +29,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var activityIndicator: ProgressIndicator?
     
+    //MARK: Application Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -120,15 +123,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 }
             }
             
-            DispatchQueue.main.async {
+            UIView.animate(withDuration: 1) {
+                for counter in 0..<self.alertColorButtons.count {
+                    self.alertColorButtons[counter].alpha = 0.1
+                }
+            } completion: { (finished) in
                 UIView.animate(withDuration: 1) {
-                    for counter in 0..<self.alertColorButtons.count {
-                        self.alertColorButtons[counter].alpha = 0.1
-                    }
-                } completion: { (finished) in
-                    UIView.animate(withDuration: 0.5) {
-                        self.alertColorButtons[Utility.alertLevel.rawValue].alpha = 1
-                    }
+                    self.alertColorButtons[Utility.alertLevel.rawValue].alpha = 1
+                    
+                    let guideline = NSMutableAttributedString(string: "Current health related guidelines in Bavaria:", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .semibold)])
+                    guideline.append(NSAttributedString(string: "\n\n\n"))
+                    guideline.append(NSAttributedString(string: message ?? "", attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .regular)]))
+                    
+                    self.guidelineTextView.isHidden = false
+                    self.guidelineTextView.attributedText = guideline
                 }
             }
         }
