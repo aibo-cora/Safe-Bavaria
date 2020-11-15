@@ -37,6 +37,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.startTimer()
         }
         
+        Utility.configureSettings()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(userLocated(_:)), name: .UserLocated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showProgress(_:)), name: .ShowProgress, object: nil)
         
@@ -77,34 +79,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    /// Call helper function to find out what the guidelines and current alert level are. If alert level changed, display a local notification. Update UI.
+    /// - Parameters:
+    ///   - cases: Number of cases return from the server.
+    ///   - lastUpdated: Time stamp when the number of cases was updated last.
     func defineAlertLevel(using cases: Double, lastUpdated: String) {
-        let colorMessages = Utility.getCurrentStates()
-        var currentAlertLevel = AlertLevel.Green
-        var userMessage:String?
-        
-        switch cases {
-        case 0...34:
-            currentAlertLevel = .Green
-            userMessage = colorMessages[0]
-        case 36...50:
-            currentAlertLevel = .Yellow
-            userMessage = colorMessages[1]
-        case 51...99:
-            currentAlertLevel = .Red
-            userMessage = colorMessages[2]
-        default:
-            currentAlertLevel = .DarkRed
-            userMessage = colorMessages[3]
-        }
+        let (guidelines, currentAlertLevel) = Utility.getGuidelines(using: cases)
         
         if currentAlertLevel != Utility.alertLevel {
-            notifyUser(with: userMessage)
+            Utility.postLocalNotification()
             Utility.alertLevel = currentAlertLevel
         }
         
-        displayData(using: userMessage)
+        displayData(using: guidelines, time: lastUpdated)
     }
     
+    /// Display activity indicator while the app is getting a response from the server and the app is locating the user.
+    /// - Parameter notification: Show Progress
     @objc fileprivate func showProgress(_ notification: NSNotification) {
         DispatchQueue.main.async {
             self.activityIndicator?.start()
@@ -113,7 +104,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     /// Update UI, if needed, to show current guidelines within app.
     /// - Parameter message: Current level guidelines.
-    fileprivate func displayData(using message: String?) {
+    fileprivate func displayData(using message: String?, time lastUpdated: String) {
         DispatchQueue.main.async {
             self.activityIndicator?.stop()
             
@@ -131,8 +122,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 UIView.animate(withDuration: 1) {
                     self.alertColorButtons[Utility.alertLevel.rawValue].alpha = 1
                     
-                    let guideline = NSMutableAttributedString(string: "Current health related guidelines in Bavaria:", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .semibold)])
-                    guideline.append(NSAttributedString(string: "\n\n\n"))
+                    let guideline = NSMutableAttributedString(string: "Current health related guidelines in Bavaria, as of ", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .semibold)])
+                    guideline.append(NSAttributedString(string: lastUpdated, attributes: [.font: UIFont.italicSystemFont(ofSize: 20)]))
+                    guideline.append(NSAttributedString(string: ":\n\n\n"))
                     guideline.append(NSAttributedString(string: message ?? "", attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .regular)]))
                     
                     self.guidelineTextView.isHidden = false
@@ -141,13 +133,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
-    
-    /// Alert level has changed. Display a notification.
-    /// - Parameter message: Current level guidelines.
-    fileprivate func notifyUser(with message: String?) {
-        print("Alert level has changed...")
-    }
-    
     /// Every "timeInternal" (current = 10 minutes) the timer fires up the location manager to find user location.
     func startTimer() {
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))

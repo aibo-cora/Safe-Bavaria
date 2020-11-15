@@ -13,6 +13,51 @@ import SwiftyJSON
 
 /// This is a class with static functions that acts as the View Model middleman between UI and model.
 class Utility {
+    /// Request user authorization to display local notifications.
+    static func configureSettings() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge, .provisional]) { granted, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            // Enable or disable features based on the authorization.
+        }
+    }
+    
+    /// If the user authorized notifications, display a local notification which  informs the user that new guidelines are in effect.
+    static func postLocalNotification() {
+        let center = UNUserNotificationCenter.current()
+        
+        center.getNotificationSettings { settings in
+            guard (settings.authorizationStatus == .authorized) ||
+                  (settings.authorizationStatus == .provisional) else { return }
+            
+            let content = UNMutableNotificationContent()
+            content.title = "Alert Level Changed"
+            content.body = "View new guidelines."
+            content.sound = UNNotificationSound.default
+            
+            if settings.alertSetting == .enabled {
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                // Create the request
+                let uuidString = UUID().uuidString
+                let request = UNNotificationRequest(identifier: uuidString,
+                            content: content, trigger: trigger)
+
+                // Schedule the request with the system.
+                center.add(request) { (error) in
+                   if error != nil {
+                      // Handle any errors.
+                   }
+                }
+            } else {
+                // Schedule a notification with a badge and sound.
+                
+            }
+        }
+    }
     /// Decodes data into a dictionary with readable messages and rules.
     /// - Returns: Dictionary that contains relevant information about each state of the current alert level.
     static func getCurrentStates() -> [Int:String] {
@@ -103,5 +148,31 @@ class Utility {
                 }
             }
         }
+    }
+    
+    /// Identify alert level based on received number of cases
+    /// - Parameter cases: Number of cases returned from the server.
+    /// - Returns: Guidelines that match the current alert level and current alert level.
+    static func getGuidelines(using cases: Double) -> (String?, AlertLevel) {
+        let colorMessages = Utility.getCurrentStates()
+        var currentAlertLevel = AlertLevel.Green
+        var userMessage:String?
+        
+        switch cases {
+        case 0...34:
+            currentAlertLevel = .Green
+            userMessage = colorMessages[0]
+        case 36...50:
+            currentAlertLevel = .Yellow
+            userMessage = colorMessages[1]
+        case 51...99:
+            currentAlertLevel = .Red
+            userMessage = colorMessages[2]
+        default:
+            currentAlertLevel = .DarkRed
+            userMessage = colorMessages[3]
+        }
+        
+        return (userMessage, currentAlertLevel)
     }
 }

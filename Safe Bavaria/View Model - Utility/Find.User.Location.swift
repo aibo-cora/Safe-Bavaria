@@ -14,8 +14,6 @@ extension ViewController {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
-        case .notDetermined, .denied, .restricted:
-            self.alertLocationAccessNeeded()
         case .authorizedAlways, .authorizedWhenInUse:
             if CLLocationManager.locationServicesEnabled() {
                 NotificationCenter.default.post(name: .ShowProgress, object: nil)
@@ -24,7 +22,7 @@ extension ViewController {
             }
             manager.requestLocation()
         default:
-            break
+            self.alertLocationAccessNeeded()
         }
     }
     
