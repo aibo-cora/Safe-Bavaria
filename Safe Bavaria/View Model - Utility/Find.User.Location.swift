@@ -16,8 +16,6 @@ extension ViewController {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             if CLLocationManager.locationServicesEnabled() {
-                NotificationCenter.default.post(name: .ShowProgress, object: nil)
-                
                 manager.requestLocation()
             }
             manager.requestLocation()

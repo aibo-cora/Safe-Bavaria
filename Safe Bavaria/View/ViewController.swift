@@ -40,19 +40,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         Utility.configureSettings()
         
         NotificationCenter.default.addObserver(self, selector: #selector(userLocated(_:)), name: .UserLocated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showProgress(_:)), name: .ShowProgress, object: nil)
         
         activityIndicator = ProgressIndicator(inview:self.view, loadingViewColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), indicatorColor: UIColor.black, message: "Gathering data...")
             self.view.addSubview(activityIndicator!)
     }
     
-    /// When the location manager delegate updates (returns) user location, this function continues with checking whether the user is in the region that is being monitored. If the user is in the region, the function calls an API that returns number of cases in the region from a server.
+    /// When the location manager delegate updates (returns) user location, this function continues with checking whether the user is in the region that is being monitored. If the user is in the region, the function calls an API that returns number of cases in the region from the server.
     /// - Parameter notification: notification that triggered this call.
     @objc func userLocated(_ notification: NSNotification) {
+        dismiss(animated: true, completion: nil)
+        
         Utility.findLocationRegion(location: Utility.userLocation) { (germanState) in
             if let state = germanState {
                 switch state {
                 case self.region:
+                    self.showProgress()
                     Utility.getCasesData() { cases, time, error  in
                         if error == nil {
                             if let cases = Double(cases) {
@@ -69,11 +71,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 default:
                     let alert = UIAlertController(title: "Out of bounds", message: "This region is not being monitored.", preferredStyle: .alert)
-                    self.present(alert, animated: true) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
+                    self.present(alert, animated: true)
                 }
             }
         }
@@ -95,8 +93,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     /// Display activity indicator while the app is getting a response from the server and the app is locating the user.
-    /// - Parameter notification: Show Progress
-    @objc fileprivate func showProgress(_ notification: NSNotification) {
+    fileprivate func showProgress() {
         DispatchQueue.main.async {
             self.activityIndicator?.start()
         }
@@ -134,7 +131,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     /// Every "timeInternal" (current = 10 minutes) the timer fires up the location manager to find user location.
-    func startTimer() {
+    @objc func startTimer() {
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))
         timer?.schedule(deadline: .now(), repeating: .seconds(timeInterval))
         timer?.setEventHandler {

@@ -97,8 +97,6 @@ class Utility {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             if CLLocationManager.locationServicesEnabled() {
-                NotificationCenter.default.post(name: .ShowProgress, object: nil)
-                
                 manager.requestLocation()
             }
         default:
