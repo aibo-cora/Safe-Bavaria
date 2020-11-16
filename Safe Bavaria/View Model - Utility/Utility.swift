@@ -88,7 +88,7 @@ class Utility {
     /// - Parameters:
     ///   - manager: Location manager to configure.
     ///   - delegate: View that delegates tasks. Delegate methods implemented in "Find.User.Location.swift"
-    static func configureLocationManager(manager: CLLocationManager, delegate: UIViewController & CLLocationManagerDelegate) {
+    static func configureLocationManager(manager: CLLocationManager, delegate: CLLocationManagerDelegate?) {
         
         manager.allowsBackgroundLocationUpdates = true
         manager.delegate = delegate

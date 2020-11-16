@@ -7,6 +7,7 @@
 
 import UIKit
 import BackgroundTasks
+import CoreLocation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,14 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
         queue.addOperation {
-            
+            Utility.configureLocationManager(manager: CLLocationManager(), delegate: self)
         }
         queue.operations.last?.completionBlock = {
+            print("Operation completion block...")
             task.setTaskCompleted(success: true)
         }
         
         task.expirationHandler = {
+            print("Expiration handler...")
             queue.cancelAllOperations()
+            task.setTaskCompleted(success: false)
         }
     }
     
@@ -56,6 +60,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Could not schedule app refresh: \(error)")
         }
     }
-    
 }
 
+extension AppDelegate: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            if CLLocationManager.locationServicesEnabled() {
+                manager.requestLocation()
+            }
+            manager.requestLocation()
+        default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        Utility.userLocation = locations.last
+        NotificationCenter.default.post(name: .UserLocated, object: nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("didFailWithError")
+    }
+}

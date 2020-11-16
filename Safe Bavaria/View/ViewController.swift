@@ -59,7 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))
         timer?.schedule(deadline: .now(), repeating: .seconds(timeInterval))
         timer?.setEventHandler {
-            Utility.configureLocationManager(manager: self.locationManager, delegate: self)
+                Utility.configureLocationManager(manager: self.locationManager, delegate: self)
         }
         if #available(iOS 10.0, *) {
             timer?.activate()
@@ -72,12 +72,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     /// - Parameter notification: notification that triggered this call.
     @objc func userLocated(_ notification: NSNotification) {
         dismiss(animated: true, completion: nil)
+        print("Identifying region...")
         
         Utility.findLocationRegion(location: Utility.userLocation) { (germanState) in
             if let state = germanState {
                 switch state {
                 case self.region:
                     self.showProgress()
+                    print("Retrieving data from server...")
                     Utility.getCasesData() { cases, time, error  in
                         if error == nil {
                             if let cases = Double(cases) {
