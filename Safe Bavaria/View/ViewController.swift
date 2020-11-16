@@ -54,6 +54,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         activityIndicator = ProgressIndicator(inview:self.view, loadingViewColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), indicatorColor: UIColor.black, message: "Gathering data...")
             self.view.addSubview(activityIndicator!)
     }
+    /// Every "timeInternal" (current = 10 minutes) the timer fires up the location manager to find user location.
+    @objc func startTimer() {
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))
+        timer?.schedule(deadline: .now(), repeating: .seconds(timeInterval))
+        timer?.setEventHandler {
+            Utility.configureLocationManager(manager: self.locationManager, delegate: self)
+        }
+        if #available(iOS 10.0, *) {
+            timer?.activate()
+        } else {
+            timer?.resume()
+        }
+    }
     
     /// When the location manager delegate updates (returns) user location, this function continues with checking whether the user is in the region that is being monitored. If the user is in the region, the function calls an API that returns number of cases in the region from the server.
     /// - Parameter notification: notification that triggered this call.
@@ -140,27 +153,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
-    /// Every "timeInternal" (current = 10 minutes) the timer fires up the location manager to find user location.
-    @objc func startTimer() {
-        timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))
-        timer?.schedule(deadline: .now(), repeating: .seconds(timeInterval))
-        timer?.setEventHandler {
-            Utility.configureLocationManager(manager: self.locationManager, delegate: self)
-        }
-        if #available(iOS 10.0, *) {
-            timer?.activate()
-        } else {
-            timer?.resume()
-        }
-    }
-    
-    func stopTimer() {
-        timer?.cancel()
-        timer = nil
-    }
 
     deinit {
-        stopTimer()
+        timer?.cancel()
+        timer = nil
     }
 }
 
