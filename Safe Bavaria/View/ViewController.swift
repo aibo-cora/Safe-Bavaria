@@ -33,8 +33,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        OperationQueue.main.addOperation {
+        var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+        
+        DispatchQueue.global().async {
+            backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "Find location and update UI") {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = UIBackgroundTaskIdentifier.invalid
+            }
+            
             self.startTimer()
+            // End the task assertion.
+            UIApplication.shared.endBackgroundTask(backgroundTaskID)
+            backgroundTaskID = UIBackgroundTaskIdentifier.invalid
         }
         
         Utility.configureSettings()
