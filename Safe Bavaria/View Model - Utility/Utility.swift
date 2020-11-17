@@ -40,7 +40,7 @@ class Utility {
             content.sound = UNNotificationSound.default
             
             if settings.alertSetting == .enabled {
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
                 // Create the request
                 let uuidString = UUID().uuidString
                 let request = UNNotificationRequest(identifier: uuidString,

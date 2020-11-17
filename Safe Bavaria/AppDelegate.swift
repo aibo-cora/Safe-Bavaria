@@ -32,8 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Background Mode
     fileprivate func handleBackgroudRefresh(task: BGAppRefreshTask) {
         scheduleBackgroundRefresh()
-        print("background refresh performing tasks...")
-        let queue = OperationQueue()
+        
+        let queue = OperationQueue.main
         queue.maxConcurrentOperationCount = 1
         queue.addOperation {
             Utility.configureLocationManager(manager: CLLocationManager(), delegate: self)

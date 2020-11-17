@@ -1,5 +1,4 @@
 > Always Important: Keep your distance, wear a mask, wash your hands, air rooms regularly
 
 - Text in the app should be displayed in German (if the system language is german - or in english - if the system language is not german)
-
-- The application should check every 10 minutes for the property cases7_per_100k from the official rest api for the actual coordinates of the devices.
+- Add 'Refresh' button 
