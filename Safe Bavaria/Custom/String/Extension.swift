@@ -8,12 +8,11 @@
 import Foundation
 
 extension String {
-    
     /// Returns a string based on localized settings
     /// - Parameter comment: comment.
     /// - Returns: localized string.
     func localized(withComment comment: String? = nil) -> String {
-        return NSLocalizedString(self, comment: comment ?? "")
+        return NSLocalizedString(self, comment: "German")
     }
 
 }

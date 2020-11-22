@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE1B28AD256A13A10021404E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DE1B28AC256A13A10021404E /* README.md */; };
 		DE20FB24255CA05E004443D3 /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20FB23255CA05E004443D3 /* Notification.Name.swift */; };
 		DE411A7B255CCDFB0088A9E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DE411A7A255CCDFB0088A9E0 /* Alamofire */; };
 		DE5CAB2B255F0BA1005C76FC /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CAB2A255F0BA1005C76FC /* ProgressIndicator.swift */; };
 		DE5CAB2E255F1BAD005C76FC /* AlertColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CAB2D255F1BAD005C76FC /* AlertColorButton.swift */; };
+		DE84D198256A16480016C764 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE84D19A256A16480016C764 /* Localizable.strings */; };
 		DEAA5F85255C69C600BDCE97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */; };
 		DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F88255C69C600BDCE97 /* ViewController.swift */; };
 		DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEAA5F8A255C69C600BDCE97 /* Main.storyboard */; };
@@ -20,15 +22,18 @@
 		DEAA5FA1255C724100BDCE97 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5FA0255C724100BDCE97 /* Utility.swift */; };
 		DEAA5FA4255C92BF00BDCE97 /* Find.User.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */; };
 		DEBA8EC9255CD43300817747 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DEBA8EC8255CD43300817747 /* SwiftyJSON */; };
-		DEFAEEE9255CF90E00EEF0E2 /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFAEEE8255CF90E00EEF0E2 /* Localized.swift */; };
+		DEFAEEE9255CF90E00EEF0E2 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFAEEE8255CF90E00EEF0E2 /* Extension.swift */; };
 		DEFAEEED255CFB6D00EEF0E2 /* AlertLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFAEEEC255CFB6D00EEF0E2 /* AlertLevel.swift */; };
 		DEFAEEF0255D02C300EEF0E2 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = DEFAEEEF255D02C300EEF0E2 /* TODO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE1B28AC256A13A10021404E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DE20FB23255CA05E004443D3 /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
 		DE5CAB2A255F0BA1005C76FC /* ProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicator.swift; sourceTree = "<group>"; };
 		DE5CAB2D255F1BAD005C76FC /* AlertColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertColorButton.swift; sourceTree = "<group>"; };
+		DE84D199256A16480016C764 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DE84D19C256A16670016C764 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DEAA5F81255C69C600BDCE97 /* Safe Bavaria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Bavaria.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEAA5F88255C69C600BDCE97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,7 +46,7 @@
 		DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.User.Location.swift; sourceTree = "<group>"; };
 		DEAA5FB8255C9DB500BDCE97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DEAA5FB9255C9DB500BDCE97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		DEFAEEE8255CF90E00EEF0E2 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
+		DEFAEEE8255CF90E00EEF0E2 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DEFAEEEC255CFB6D00EEF0E2 /* AlertLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLevel.swift; sourceTree = "<group>"; };
 		DEFAEEEF255D02C300EEF0E2 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +87,7 @@
 		DEAA5F78255C69C600BDCE97 = {
 			isa = PBXGroup;
 			children = (
+				DE1B28AC256A13A10021404E /* README.md */,
 				DEFAEEEF255D02C300EEF0E2 /* TODO */,
 				DEAA5F83255C69C600BDCE97 /* Safe Bavaria */,
 				DEAA5F82255C69C600BDCE97 /* Products */,
@@ -123,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				DEAA5FA0255C724100BDCE97 /* Utility.swift */,
+				DE84D19A256A16480016C764 /* Localizable.strings */,
 				DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */,
 			);
 			path = "View Model - Utility";
@@ -140,7 +147,7 @@
 		DEFAEEE7255CF8F900EEF0E2 /* String */ = {
 			isa = PBXGroup;
 			children = (
-				DEFAEEE8255CF90E00EEF0E2 /* Localized.swift */,
+				DEFAEEE8255CF90E00EEF0E2 /* Extension.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -212,7 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEAA5F9D255C71CC00BDCE97 /* jsonData in Resources */,
+				DE84D198256A16480016C764 /* Localizable.strings in Resources */,
 				DEFAEEF0255D02C300EEF0E2 /* TODO in Resources */,
+				DE1B28AD256A13A10021404E /* README.md in Resources */,
 				DEAA5F91255C69C900BDCE97 /* LaunchScreen.storyboard in Resources */,
 				DEAA5F8E255C69C900BDCE97 /* Assets.xcassets in Resources */,
 				DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */,
@@ -227,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEAA5FA4255C92BF00BDCE97 /* Find.User.Location.swift in Sources */,
-				DEFAEEE9255CF90E00EEF0E2 /* Localized.swift in Sources */,
+				DEFAEEE9255CF90E00EEF0E2 /* Extension.swift in Sources */,
 				DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */,
 				DE20FB24255CA05E004443D3 /* Notification.Name.swift in Sources */,
 				DE5CAB2E255F1BAD005C76FC /* AlertColorButton.swift in Sources */,
@@ -241,6 +250,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		DE84D19A256A16480016C764 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE84D199256A16480016C764 /* de */,
+				DE84D19C256A16670016C764 /* en */,
+			);
+			name = Localizable.strings;
+			path = "Safe Bavaria/View Model - Utility";
+			sourceTree = SOURCE_ROOT;
+		};
 		DEAA5F8A255C69C600BDCE97 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

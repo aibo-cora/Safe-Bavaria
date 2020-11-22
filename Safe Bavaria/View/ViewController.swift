@@ -19,7 +19,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         UIColor(red: 1, green: 0, blue: 0, alpha: 1),       // Red
         UIColor(red: 128/255, green: 0, blue: 0, alpha: 1)  // Dark Red
     ]
-    
+    let guidelinesAlways = ["Keep your distance", "Wear a mask", "Wash your hands", "Air rooms regularly"]
     /// How often, in secods, the app checks for updates
     let timeInterval = 600
     /// Region to monitor
@@ -47,18 +47,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             backgroundTaskID = UIBackgroundTaskIdentifier.invalid
         }
         
+        configureUI()
         Utility.configureSettings()
         
         NotificationCenter.default.addObserver(self, selector: #selector(userLocated(_:)), name: .UserLocated, object: nil)
         
-        activityIndicator = ProgressIndicator(inview:self.view, loadingViewColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), indicatorColor: UIColor.black, message: "Gathering data...")
+        activityIndicator = ProgressIndicator(inview:self.view, loadingViewColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), indicatorColor: UIColor.black, message: "Gathering data...".localized())
             self.view.addSubview(activityIndicator!)
+        if self.alertColorButtons.count == self.colorSchemes.count {
+            for counter in 0..<self.alertColorButtons.count {
+                self.alertColorButtons[counter].backgroundColor = self.colorSchemes[counter]
+            }
+        }
+    }
+    
+    /// Setup UI components
+    fileprivate func configureUI() {
+        UIView.animate(withDuration: 1) {
+            for counter in 0..<self.alertColorButtons.count {
+                self.alertColorButtons[counter].alpha = 0.1
+            }
+        } completion: { (finished) in
+            UIView.animate(withDuration: 1) {
+                let guideline = NSMutableAttributedString()
+                guideline.append(Utility.formatGuidelines(using: self.guidelinesAlways))
+
+                self.guidelineTextView.isHidden = false
+                self.guidelineTextView.attributedText = guideline
+            }
+        }
     }
     /// Every "timeInternal" (current = 10 minutes) the timer fires up the location manager to find user location.
     @objc func startTimer() {
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "com.location.services.timer", attributes: .concurrent))
         timer?.schedule(deadline: .now(), repeating: .seconds(timeInterval))
-        timer?.setEventHandler {
+        timer?.setEventHandler { [unowned self] in
                 Utility.configureLocationManager(manager: self.locationManager, delegate: self)
         }
         if #available(iOS 10.0, *) {
@@ -74,19 +97,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         dismiss(animated: true, completion: nil)
         print("Identifying region...")
         
-        Utility.findLocationRegion(location: Utility.userLocation) { (germanState) in
+        Utility.findLocationRegion(location: Utility.userLocation) { [unowned self]
+            (germanState) in
             if let state = germanState {
                 switch state {
                 case self.region:
                     self.showProgress()
                     print("Retrieving data from server...")
-                    Utility.getCasesData() { cases, time, error  in
+                    Utility.getCasesData() { [unowned self]
+                        cases, time, error  in
                         if error == nil {
                             if let cases = Double(cases) {
                                 self.defineAlertLevel(using: cases, lastUpdated: time)
                             }
                         } else {
-                            let alert = UIAlertController(title: "Server Error.", message: "Server did not respond, please try again later.", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Server Error.".localized(), message: "Server did not respond, please try again later.".localized(), preferredStyle: .alert)
                             self.present(alert, animated: true) {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                                     self.dismiss(animated: true, completion: nil)
@@ -95,7 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         }
                     }
                 default:
-                    let alert = UIAlertController(title: "Out of bounds", message: "This region is not being monitored.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Out of bounds".localized(), message: "This region is not being monitored.".localized(), preferredStyle: .alert)
                     self.present(alert, animated: true)
                 }
             }
@@ -110,7 +135,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let (guidelines, currentAlertLevel) = Utility.getGuidelines(using: cases)
         
         if currentAlertLevel != Utility.alertLevel {
-            Utility.postLocalNotification()
+            Utility.postLocalNotification(message: "Alert Level Changed.".localized())
             Utility.alertLevel = currentAlertLevel
         }
         
@@ -126,31 +151,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     /// Update UI, if needed, to show current guidelines within app.
     /// - Parameter message: Current level guidelines.
+    /// - Parameter lastUpdated: Time stamp of last updated batch of data.
     fileprivate func displayData(using message: String?, time lastUpdated: String) {
         DispatchQueue.main.async {
             self.activityIndicator?.stop()
             
-            if self.alertColorButtons.count == self.colorSchemes.count {
-                for counter in 0..<self.alertColorButtons.count {
-                    self.alertColorButtons[counter].backgroundColor = self.colorSchemes[counter]
-                }
-            }
-            
             UIView.animate(withDuration: 1) {
-                for counter in 0..<self.alertColorButtons.count {
-                    self.alertColorButtons[counter].alpha = 0.1
-                }
+                self.alertColorButtons[Utility.alertLevel.rawValue].alpha = 1
             } completion: { (finished) in
                 UIView.animate(withDuration: 1) {
-                    self.alertColorButtons[Utility.alertLevel.rawValue].alpha = 1
+                    let attributedString = NSMutableAttributedString(attributedString: Utility.formatGuidelines(using: self.guidelinesAlways))
+                    attributedString.append(NSAttributedString(string: "\n\n\nAdditional guidelines as of: ".localized(), attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .bold)]))
+                    attributedString.append(NSAttributedString(string: lastUpdated, attributes: [.font: UIFont.italicSystemFont(ofSize: 20)]))
+                    attributedString.append(NSAttributedString(string: "\n\n", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .regular)]))
                     
-                    let guideline = NSMutableAttributedString(string: "Current health related guidelines in Bavaria, as of ", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .semibold)])
-                    guideline.append(NSAttributedString(string: lastUpdated, attributes: [.font: UIFont.italicSystemFont(ofSize: 20)]))
-                    guideline.append(NSAttributedString(string: ":\n\n\n"))
-                    guideline.append(NSAttributedString(string: message ?? "", attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .regular)]))
-                    
-                    self.guidelineTextView.isHidden = false
-                    self.guidelineTextView.attributedText = guideline
+                    if var message = message?.localized() {
+                        message = message.replacingOccurrences(of: "- ", with: "\t\u{2022}\t")
+                        attributedString.append(NSAttributedString(string: message, attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .regular)]))
+                    }
+                    self.guidelineTextView.attributedText = attributedString
                 }
             }
         }

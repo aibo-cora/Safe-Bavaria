@@ -31,11 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Background Mode
     fileprivate func handleBackgroudRefresh(task: BGAppRefreshTask) {
+        print("Background refresh started...")
         scheduleBackgroundRefresh()
         
         let queue = OperationQueue.main
         queue.maxConcurrentOperationCount = 1
         queue.addOperation {
+            print("Operation added to queue...")
             Utility.configureLocationManager(manager: CLLocationManager(), delegate: self)
         }
         queue.operations.last?.completionBlock = {
@@ -56,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             try BGTaskScheduler.shared.submit(request)
+            print("Background task scheduled...")
         } catch {
             print("Could not schedule app refresh: \(error)")
         }

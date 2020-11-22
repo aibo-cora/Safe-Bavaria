@@ -27,7 +27,7 @@ class Utility {
     }
     
     /// If the user authorized notifications, display a local notification which  informs the user that new guidelines are in effect.
-    static func postLocalNotification() {
+    static func postLocalNotification(message: String) {
         let center = UNUserNotificationCenter.current()
         
         center.getNotificationSettings { settings in
@@ -35,12 +35,12 @@ class Utility {
                   (settings.authorizationStatus == .provisional) else { return }
             
             let content = UNMutableNotificationContent()
-            content.title = "Alert Level Changed"
-            content.body = "View new guidelines."
+            content.title = message
+            content.body = "View guidelines."
             content.sound = UNNotificationSound.default
             
             if settings.alertSetting == .enabled {
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
                 // Create the request
                 let uuidString = UUID().uuidString
                 let request = UNNotificationRequest(identifier: uuidString,
@@ -49,7 +49,7 @@ class Utility {
                 // Schedule the request with the system.
                 center.add(request) { (error) in
                    if error != nil {
-                      // Handle any errors.
+                    print(error?.localizedDescription as Any)
                    }
                 }
             } else {
@@ -111,7 +111,7 @@ class Utility {
     /// - Parameter location: Last known location of the user.
     static func findLocationRegion(location: CLLocation?, completion: @escaping (String?) -> Void) {
         if let location = location {
-            CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+            CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en_US")) { (placemarks, error) in
                 if error == nil {
                     if let firstLocation = placemarks?.first {
                         completion(firstLocation.administrativeArea)
@@ -172,5 +172,19 @@ class Utility {
         }
         
         return (userMessage, currentAlertLevel)
+    }
+    
+    static func formatGuidelines(using guidelines: [String]) -> NSAttributedString {
+        let bulletPoint = "\u{2022}"
+        let welcomeMessage = "Current health related guidelines in Bavaria:".localized()
+        let guideline = NSMutableAttributedString(string: welcomeMessage, attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .semibold)])
+        guideline.append(NSAttributedString(string: "\n\n\n"))
+        
+        for element in guidelines {
+            let localizedGuideline = element.localized()
+            guideline.append(NSAttributedString(string: "\t\(bulletPoint)\t\(localizedGuideline)\n", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .regular)]))
+        }
+        
+        return guideline
     }
 }
