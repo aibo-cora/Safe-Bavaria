@@ -128,8 +128,8 @@
 		DEAA5F9F255C722200BDCE97 /* View Model - Utility */ = {
 			isa = PBXGroup;
 			children = (
-				DEAA5FA0255C724100BDCE97 /* Utility.swift */,
 				DE84D19A256A16480016C764 /* Localizable.strings */,
+				DEAA5FA0255C724100BDCE97 /* Utility.swift */,
 				DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */,
 			);
 			path = "View Model - Utility";
@@ -257,8 +257,8 @@
 				DE84D19C256A16670016C764 /* en */,
 			);
 			name = Localizable.strings;
-			path = "Safe Bavaria/View Model - Utility";
-			sourceTree = SOURCE_ROOT;
+			path = "../View Model - Utility";
+			sourceTree = "<group>";
 		};
 		DEAA5F8A255C69C600BDCE97 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;

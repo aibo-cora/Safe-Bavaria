@@ -36,7 +36,7 @@ class Utility {
             
             let content = UNMutableNotificationContent()
             content.title = message
-            content.body = "View guidelines."
+            content.body = "View guidelines.".localized()
             content.sound = UNNotificationSound.default
             
             if settings.alertSetting == .enabled {

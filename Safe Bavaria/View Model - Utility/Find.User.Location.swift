@@ -30,14 +30,15 @@ extension ViewController {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let alert = UIAlertController(title: "Error", message: "Could not find your location.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error".localized(), message: "Could not find your location.".localized(), preferredStyle: .alert)
         present(alert, animated: true) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                 self.dismiss(animated: true, completion: nil)
             }
         }
     }
     
+    /// Display an alert and a link to device settings to allow location tracking in case the user opted out permitting the app to locate device before.
     func alertLocationAccessNeeded() {
         let settingAppURL = URL(string: UIApplication.openSettingsURLString)!
         
