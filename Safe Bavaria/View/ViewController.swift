@@ -25,8 +25,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     /// Region to monitor
     let region = "Bavaria"
     
+    /// Main timer
     var timer: DispatchSourceTimer?
     let locationManager = CLLocationManager()
+    /// Display activity indicator when a connection with back-end server is being established
     var activityIndicator: ProgressIndicator?
     
     //MARK: Application Life Cycle
@@ -53,7 +55,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(userLocated(_:)), name: .UserLocated, object: nil)
         
         activityIndicator = ProgressIndicator(inview:self.view, loadingViewColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), indicatorColor: UIColor.black, message: "Gathering data...".localized())
-            self.view.addSubview(activityIndicator!)
+        
+        self.view.addSubview(activityIndicator!)
+        
         if self.alertColorButtons.count == self.colorSchemes.count {
             for counter in 0..<self.alertColorButtons.count {
                 self.alertColorButtons[counter].backgroundColor = self.colorSchemes[counter]
@@ -94,7 +98,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     /// When the location manager delegate updates (returns) user location, this function continues with checking whether the user is in the region that is being monitored. If the user is in the region, the function calls an API that returns number of cases in the region from the server.
     /// - Parameter notification: notification that triggered this call.
     @objc func userLocated(_ notification: NSNotification) {
-        dismiss(animated: true, completion: nil)
         print("Identifying region...")
         
         Utility.findLocationRegion(location: Utility.userLocation) { [unowned self]
@@ -104,8 +107,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 case self.region:
                     self.showProgress()
                     print("Retrieving data from server...")
-                    Utility.getCasesData() { [unowned self]
-                        cases, time, error  in
+                    Utility.getCasesData() { [unowned self] cases, time, error  in
                         if error == nil {
                             if let cases = Double(cases) {
                                 self.defineAlertLevel(using: cases, lastUpdated: time)
@@ -120,8 +122,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         }
                     }
                 default:
-                    let alert = UIAlertController(title: "Out of bounds".localized(), message: "This region is not being monitored.".localized(), preferredStyle: .alert)
-                    self.present(alert, animated: true)
+                    self.activityIndicator?.stop()
+                    
+                    let alert = UIAlertController(title: "Out of bounds".localized(), message: "The region you are in is not being monitored.".localized(), preferredStyle: .alert)
+                    self.present(alert, animated: true) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
                 }
             }
         }

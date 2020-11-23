@@ -174,6 +174,9 @@ class Utility {
         return (userMessage, currentAlertLevel)
     }
     
+    /// Create a bullet list out of an array of strings
+    /// - Parameter guidelines: Array of strings containing guidelines
+    /// - Returns: Formatted string that will be displayed
     static func formatGuidelines(using guidelines: [String]) -> NSAttributedString {
         let bulletPoint = "\u{2022}"
         let welcomeMessage = "Current health related guidelines in Bavaria:".localized()

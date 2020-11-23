@@ -12,6 +12,7 @@ import CoreLocation
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var locationManager = CLLocationManager()
     var window: UIWindow?
     let taskID = "com.safe.bavaria.refresh"
     
@@ -32,13 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Background Mode
     fileprivate func handleBackgroudRefresh(task: BGAppRefreshTask) {
         print("Background refresh started...")
-        scheduleBackgroundRefresh()
         
         let queue = OperationQueue.main
         queue.maxConcurrentOperationCount = 1
-        queue.addOperation {
+        queue.addOperation { [unowned self] in
             print("Operation added to queue...")
-            Utility.configureLocationManager(manager: CLLocationManager(), delegate: self)
+            Utility.configureLocationManager(manager: self.locationManager, delegate: self)
         }
         queue.operations.last?.completionBlock = {
             print("Operation completion block...")
@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             queue.cancelAllOperations()
             task.setTaskCompleted(success: false)
         }
+        scheduleBackgroundRefresh()
     }
     
     func scheduleBackgroundRefresh() {
@@ -60,32 +61,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try BGTaskScheduler.shared.submit(request)
             print("Background task scheduled...")
         } catch {
-            print("Could not schedule app refresh: \(error)")
+            print("Could not schedule app refresh: \(error.localizedDescription)")
         }
     }
 }
 
 extension AppDelegate: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             if CLLocationManager.locationServicesEnabled() {
                 manager.requestLocation()
             }
-            manager.requestLocation()
         default:
             break
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        print("User located (background)...")
         Utility.userLocation = locations.last
         NotificationCenter.default.post(name: .UserLocated, object: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError")
+        print("didFailWithError: \(error.localizedDescription)")
     }
 }

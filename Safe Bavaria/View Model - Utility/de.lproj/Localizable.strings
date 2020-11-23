@@ -16,7 +16,7 @@
 
 "Gathering data..." = "Erfassung von Daten...";
 "Out of bounds" = "Außerhalb der Grenzen";
-"This region is not being monitored." = "Diese Region wird nicht überwacht.";
+"The region you are in is not being monitored." = "Die Region, in der Sie sich befinden, wird nicht überwacht.";
 
 "Server Error." = "Serverfehler.";
 "Server did not respond, please try again later." = "Server hat nicht geantwortet, bitte versuchen Sie es später erneut.";

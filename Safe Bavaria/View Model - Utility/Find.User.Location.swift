@@ -14,11 +14,14 @@ extension ViewController {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
+        case .authorizedWhenInUse:
+            if CLLocationManager.locationServicesEnabled() {
+                manager.requestAlwaysAuthorization()
+            }
+        case .authorizedAlways:
             if CLLocationManager.locationServicesEnabled() {
                 manager.requestLocation()
             }
-            manager.requestLocation()
         default:
             self.alertLocationAccessNeeded()
         }
