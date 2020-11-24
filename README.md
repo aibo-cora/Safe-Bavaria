@@ -40,9 +40,9 @@ Localization:
 Challenges:
 -------------
 The most time consuming was debugging the background app refresh. The issue is that the operating system does not wake the app to perform refresh exactly when intended. There are many factors in play, including: 
-    * how often and when the app gets launched by users. (The neural engine learns the routine and gives the app time to perform refresh just before user launches it again).
-    * how busy the device resources (memory, cpu) are
-    * how efficiently the app uses time allotted 
+    - how often and when the app gets launched by users. (The neural engine learns the routine and gives the app time to perform refresh just before user launches it again).
+    - how busy the device resources (memory, cpu) are
+    - how efficiently the app uses time allotted 
 
 Resolution:
 -------------
@@ -54,3 +54,5 @@ Room for improvement:
 ---------------------------
 - Two objects are being set up as CLLocationManagerDelegate - AppDelegate & ViewController. I decided to do it this way because one needs to receive callbacks in background and one in foreground (with visual alerts if there is an error). I believe this can be achieved with just one.
 - The guidelines are being displayed using animation in a UITextVIew, it might look better if it were a UITableView were each cell represents 1 guideline.
+
+
