@@ -14,6 +14,8 @@
 		DE5CAB2E255F1BAD005C76FC /* AlertColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CAB2D255F1BAD005C76FC /* AlertColorButton.swift */; };
 		DE84D198256A16480016C764 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE84D19A256A16480016C764 /* Localizable.strings */; };
 		DE9D5CB0256D66D600DD5F17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE9D5CB2256D66D600DD5F17 /* InfoPlist.strings */; };
+		DE9D5CB8256D715100DD5F17 /* de.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9D5CB6256D715100DD5F17 /* de.png */; };
+		DE9D5CB9256D715100DD5F17 /* en.png in Resources */ = {isa = PBXBuildFile; fileRef = DE9D5CB7256D715100DD5F17 /* en.png */; };
 		DEAA5F85255C69C600BDCE97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */; };
 		DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F88255C69C600BDCE97 /* ViewController.swift */; };
 		DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEAA5F8A255C69C600BDCE97 /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 		DE84D19C256A16670016C764 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DE9D5CB1256D66D600DD5F17 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DE9D5CB3256D66DF00DD5F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE9D5CB6256D715100DD5F17 /* de.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = de.png; sourceTree = "<group>"; };
+		DE9D5CB7256D715100DD5F17 /* en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en.png; sourceTree = "<group>"; };
 		DEAA5F81255C69C600BDCE97 /* Safe Bavaria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Bavaria.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEAA5F88255C69C600BDCE97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +89,15 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		DE9D5CB5256D711400DD5F17 /* screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				DE9D5CB6256D715100DD5F17 /* de.png */,
+				DE9D5CB7256D715100DD5F17 /* en.png */,
+			);
+			path = screenshots;
+			sourceTree = "<group>";
+		};
 		DEAA5F78255C69C600BDCE97 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +133,7 @@
 		DEAA5F9B255C716300BDCE97 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DE9D5CB5256D711400DD5F17 /* screenshots */,
 				DEAA5F9C255C71CC00BDCE97 /* jsonData */,
 			);
 			path = Data;
@@ -221,10 +235,12 @@
 			files = (
 				DEAA5F9D255C71CC00BDCE97 /* jsonData in Resources */,
 				DE9D5CB0256D66D600DD5F17 /* InfoPlist.strings in Resources */,
+				DE9D5CB8256D715100DD5F17 /* de.png in Resources */,
 				DE84D198256A16480016C764 /* Localizable.strings in Resources */,
 				DE1B28AD256A13A10021404E /* README.md in Resources */,
 				DEAA5F91255C69C900BDCE97 /* LaunchScreen.storyboard in Resources */,
 				DEAA5F8E255C69C900BDCE97 /* Assets.xcassets in Resources */,
+				DE9D5CB9256D715100DD5F17 /* en.png in Resources */,
 				DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
