@@ -54,3 +54,6 @@ Room for improvement:
 ---------------------------
 - Two objects are being set up as CLLocationManagerDelegate - AppDelegate & ViewController. I decided to do it this way because one needs to receive callbacks in background and one in foreground (with visual alerts if there is an error). I believe this can be achieved with just one.
 - The guidelines are being displayed using animation in a UITextVIew, it might look better if it were a UITableView were each cell represents 1 guideline.
+
+[German version](Safe%20Bavaria/Data/screenshots/de.png)
+[English version](Safe%20Bavaria/Data/screenshots/en.png)
