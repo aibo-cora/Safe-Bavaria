@@ -25,9 +25,9 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please allow location tracking to find your current location.</string>
+	<string>Please allow location tracking to find your current location in the background and perform app refresh.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Please allow location tracking to find your current location in the background.</string>
+	<string>Please allow location tracking to find your current location in the background and perform app refresh.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please allow location tracking to find your current location.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

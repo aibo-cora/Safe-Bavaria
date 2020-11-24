@@ -13,6 +13,7 @@
 		DE5CAB2B255F0BA1005C76FC /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CAB2A255F0BA1005C76FC /* ProgressIndicator.swift */; };
 		DE5CAB2E255F1BAD005C76FC /* AlertColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CAB2D255F1BAD005C76FC /* AlertColorButton.swift */; };
 		DE84D198256A16480016C764 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE84D19A256A16480016C764 /* Localizable.strings */; };
+		DE9D5CB0256D66D600DD5F17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE9D5CB2256D66D600DD5F17 /* InfoPlist.strings */; };
 		DEAA5F85255C69C600BDCE97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */; };
 		DEAA5F89255C69C600BDCE97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAA5F88255C69C600BDCE97 /* ViewController.swift */; };
 		DEAA5F8C255C69C600BDCE97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEAA5F8A255C69C600BDCE97 /* Main.storyboard */; };
@@ -33,6 +34,8 @@
 		DE5CAB2D255F1BAD005C76FC /* AlertColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertColorButton.swift; sourceTree = "<group>"; };
 		DE84D199256A16480016C764 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DE84D19C256A16670016C764 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DE9D5CB1256D66D600DD5F17 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE9D5CB3256D66DF00DD5F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DEAA5F81255C69C600BDCE97 /* Safe Bavaria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Bavaria.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAA5F84255C69C600BDCE97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEAA5F88255C69C600BDCE97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		DEAA5F9F255C722200BDCE97 /* View Model - Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DE9D5CB2256D66D600DD5F17 /* InfoPlist.strings */,
 				DE84D19A256A16480016C764 /* Localizable.strings */,
 				DEAA5FA0255C724100BDCE97 /* Utility.swift */,
 				DEAA5FA3255C92BF00BDCE97 /* Find.User.Location.swift */,
@@ -216,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEAA5F9D255C71CC00BDCE97 /* jsonData in Resources */,
+				DE9D5CB0256D66D600DD5F17 /* InfoPlist.strings in Resources */,
 				DE84D198256A16480016C764 /* Localizable.strings in Resources */,
 				DE1B28AD256A13A10021404E /* README.md in Resources */,
 				DEAA5F91255C69C900BDCE97 /* LaunchScreen.storyboard in Resources */,
@@ -254,6 +259,15 @@
 			);
 			name = Localizable.strings;
 			path = "../View Model - Utility";
+			sourceTree = "<group>";
+		};
+		DE9D5CB2256D66D600DD5F17 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE9D5CB1256D66D600DD5F17 /* de */,
+				DE9D5CB3256D66DF00DD5F17 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		DEAA5F8A255C69C600BDCE97 /* Main.storyboard */ = {

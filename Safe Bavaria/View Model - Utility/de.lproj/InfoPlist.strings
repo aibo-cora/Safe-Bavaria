@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Safe Bavaria
+
+  Created by Yura on 11/24/20.
+  
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Bitte erlauben Sie die Standortverfolgung, um Ihren aktuellen Standort im Hintergrund zu finden und eine App-Aktualisierung durchzuführen.";
+NSLocationAlwaysUsageDescription = "Bitte erlauben Sie die Standortverfolgung, um Ihren aktuellen Standort im Hintergrund zu finden und eine App-Aktualisierung durchzuführen.";
+NSLocationWhenInUseUsageDescription = "Bitte erlauben Sie die Standortverfolgung, um Ihren aktuellen Standort zu finden.";
