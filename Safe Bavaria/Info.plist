@@ -25,11 +25,11 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please allow location tracking to find your current location for accurate contact tracing readings.</string>
+	<string>Please allow location tracking to find your current location.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Please allow location tracking to find your current location for accurate contact tracing readings.</string>
+	<string>Please allow location tracking to find your current location in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow location tracking to find your current location for accurate contact tracing readings.</string>
+	<string>Please allow location tracking to find your current location.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

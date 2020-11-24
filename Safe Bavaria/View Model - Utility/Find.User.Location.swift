@@ -22,8 +22,10 @@ extension ViewController {
             if CLLocationManager.locationServicesEnabled() {
                 manager.requestLocation()
             }
-        default:
+        case .denied, .restricted:
             self.alertLocationAccessNeeded()
+        default:
+            break
         }
     }
     

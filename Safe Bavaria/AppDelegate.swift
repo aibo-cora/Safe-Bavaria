@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         scheduleBackgroundRefresh()
     }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 
     // MARK: Background Mode
     fileprivate func handleBackgroudRefresh(task: BGAppRefreshTask) {

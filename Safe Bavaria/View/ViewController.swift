@@ -37,7 +37,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
         
-        DispatchQueue.global().async {
+        // If the app goes into background, buy more time to finish started task
+        DispatchQueue.global().async { [unowned self] in
             backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "Find location and update UI") {
                 UIApplication.shared.endBackgroundTask(backgroundTaskID)
                 backgroundTaskID = UIBackgroundTaskIdentifier.invalid
@@ -58,6 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         self.view.addSubview(activityIndicator!)
         
+        // Assign colors to the custom buttons
         if self.alertColorButtons.count == self.colorSchemes.count {
             for counter in 0..<self.alertColorButtons.count {
                 self.alertColorButtons[counter].backgroundColor = self.colorSchemes[counter]
@@ -113,6 +115,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.defineAlertLevel(using: cases, lastUpdated: time)
                             }
                         } else {
+                            print("Server error: \(String(describing: error?.localizedDescription))")
                             let alert = UIAlertController(title: "Server Error.".localized(), message: "Server did not respond, please try again later.".localized(), preferredStyle: .alert)
                             self.present(alert, animated: true) {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
@@ -123,7 +126,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 default:
                     self.activityIndicator?.stop()
-                    
+
                     let alert = UIAlertController(title: "Out of bounds".localized(), message: "The region you are in is not being monitored.".localized(), preferredStyle: .alert)
                     self.present(alert, animated: true) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
@@ -161,6 +164,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     /// - Parameter message: Current level guidelines.
     /// - Parameter lastUpdated: Time stamp of last updated batch of data.
     fileprivate func displayData(using message: String?, time lastUpdated: String) {
+        print("UI updated...")
         DispatchQueue.main.async {
             self.activityIndicator?.stop()
             

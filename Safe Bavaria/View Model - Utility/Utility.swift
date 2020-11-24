@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Foundation
 import CoreLocation
 import Alamofire
 import SwiftyJSON
@@ -16,7 +15,7 @@ class Utility {
     /// Request user authorization to display local notifications.
     static func configureSettings() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge, .provisional]) { granted, error in
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             
             if let error = error {
                 print(error.localizedDescription)
@@ -31,16 +30,16 @@ class Utility {
         let center = UNUserNotificationCenter.current()
         
         center.getNotificationSettings { settings in
-            guard (settings.authorizationStatus == .authorized) ||
-                  (settings.authorizationStatus == .provisional) else { return }
+            guard (settings.authorizationStatus == .authorized) else { return }
             
             let content = UNMutableNotificationContent()
             content.title = message
             content.body = "View guidelines.".localized()
             content.sound = UNNotificationSound.default
+            content.badge = 1
             
             if settings.alertSetting == .enabled {
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
                 // Create the request
                 let uuidString = UUID().uuidString
                 let request = UNNotificationRequest(identifier: uuidString,
@@ -48,8 +47,8 @@ class Utility {
 
                 // Schedule the request with the system.
                 center.add(request) { (error) in
-                   if error != nil {
-                    print(error?.localizedDescription as Any)
+                   if let error = error {
+                    print(error.localizedDescription)
                    }
                 }
             } else {
